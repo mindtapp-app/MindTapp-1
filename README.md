@@ -1,1 +1,2 @@
 # MindTapp
+Tap your potential!
