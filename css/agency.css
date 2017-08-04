@@ -151,7 +151,7 @@ fieldset[disabled] .btn-xl.active {
   border-color: transparent;
 }
 .navbar-custom .navbar-brand {
-  color: #4778cc;
+  color: white;
   font-family: "Kaushan Script", "Helvetica Neue", Helvetica, Arial, cursive;
 }
 .navbar-custom .navbar-brand:hover,
@@ -235,7 +235,7 @@ header {
   background-size: cover;
   -o-background-size: cover;
   text-align: center;
-  color: #333;
+  color: white;
 }
 header .intro-text {
   padding-top: 100px;
@@ -743,4 +743,29 @@ img::-moz-selection {
 }
 body {
   webkit-tap-highlight-color: #4778cc;
+}
+#mainNav {
+  -webkit-animation: fadeinbar 4s;
+}
+.intro-text {
+  -webkit-animation: fadein 2s;
+}
+@-webkit-keyframes fadeinbar {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

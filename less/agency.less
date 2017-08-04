@@ -84,7 +84,7 @@ h1, h2, h3, h4, h5, h6 {
     background-color: @gray-darker;
     border-color: transparent;
     .navbar-brand {
-        color: @theme-primary;
+        color: white;
         .script-font;
         &:hover,
         &:focus,
@@ -173,7 +173,7 @@ header {
     background-position: center center;
     .background-cover;
     text-align: center;
-    color: #333;
+    color: white;
     .intro-text {
         padding-top: 100px;
         padding-bottom: 50px;
@@ -735,4 +735,23 @@ img::-moz-selection {
 
 body {
     webkit-tap-highlight-color: @theme-primary;
+}
+
+#mainNav {
+    -webkit-animation: fadeinbar 4s;
+}
+
+.intro-text {
+    -webkit-animation: fadein 2s;
+}
+
+@-webkit-keyframes fadeinbar {
+    0% {opacity:0}
+    50% {opacity:0}
+    100% {opacity:1}
+}
+
+@-webkit-keyframes fadein {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
