@@ -1,5 +1,10 @@
 // Agency Theme JavaScript
 
+$(document).ready(function () {
+    $("#mainNav").addClass('animate-header');
+    $(".intro-text").addClass('animate-intro');
+});
+
 (function($) {
     "use strict"; // Start of use strict
 

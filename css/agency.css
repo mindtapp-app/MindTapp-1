@@ -744,10 +744,10 @@ img::-moz-selection {
 body {
   webkit-tap-highlight-color: #4778cc;
 }
-#mainNav {
+.animate-header {
   -webkit-animation: fadeinbar 4s;
 }
-.intro-text {
+.animate-intro {
   -webkit-animation: fadein 2s;
 }
 @-webkit-keyframes fadeinbar {
