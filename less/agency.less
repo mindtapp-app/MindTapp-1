@@ -36,12 +36,15 @@ a.active {
 a {
     color: @theme-primary;
 }
-
 a:hover,
 a:focus,
 a:active,
 a.active {
     color: darken(@theme-primary, 10%);
+}
+
+a.timeline-scroll,a.timeline-scroll:hover{
+    color: white;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -240,6 +243,19 @@ section {
     section {
         padding: 150px 0;
     }
+}
+
+// Section Coloring
+#services {
+    background-color: @gray-lighter
+}
+
+#about,#portfolio,#team {
+    background-color: white;
+}
+
+aside.clients {
+    background-color: @gray-lighter
 }
 
 // Services Section
@@ -562,22 +578,22 @@ section#contact {
     ::-webkit-input-placeholder {
        .heading-font;
        font-weight: 700;
-       color: @gray-lighter;
+       color: @gray-light;
     }
     :-moz-placeholder { /* Firefox 18- */
        .heading-font;
        font-weight: 700;
-       color: @gray-lighter;
+       color: @gray-light;
     }
     ::-moz-placeholder {  /* Firefox 19+ */
        .heading-font;
        font-weight: 700;
-       color: @gray-lighter;
+       color: @gray-light;
     }
     :-ms-input-placeholder {  
        .heading-font;
        font-weight: 700;
-       color: @gray-lighter;
+       color: @gray-light;
     }
     .text-danger {
         color: @theme-danger;
@@ -723,6 +739,7 @@ ul.social-buttons {
 ::selection {
     text-shadow: none;
     background: @theme-primary;
+    color: white;
 }
 
 img::selection {

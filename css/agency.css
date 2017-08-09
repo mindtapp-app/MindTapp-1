@@ -3,6 +3,11 @@
  * Copyright 2013-2017 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
+/*
+
+@gray-light:       lighten(@gray-base, 46.7%); // #777
+@gray-lighter:     lighten(@gray-base, 93.5%); // #eee
+ */
 body {
   overflow-x: hidden;
   font-family: "Roboto Slab", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -35,6 +40,10 @@ a:focus,
 a:active,
 a.active {
   color: #315faf;
+}
+a.timeline-scroll,
+a.timeline-scroll:hover {
+  color: white;
 }
 h1,
 h2,
@@ -297,6 +306,17 @@ section h3.section-subheading {
   section {
     padding: 150px 0;
   }
+}
+#services {
+  background-color: #eeeeee;
+}
+#about,
+#portfolio,
+#team {
+  background-color: white;
+}
+aside.clients {
+  background-color: #eeeeee;
 }
 .service-heading {
   margin: 15px 0;
@@ -583,27 +603,27 @@ section#contact ::-webkit-input-placeholder {
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-weight: 700;
-  color: #eeeeee;
+  color: #777777;
 }
 section#contact :-moz-placeholder {
   /* Firefox 18- */
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-weight: 700;
-  color: #eeeeee;
+  color: #777777;
 }
 section#contact ::-moz-placeholder {
   /* Firefox 19+ */
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-weight: 700;
-  color: #eeeeee;
+  color: #777777;
 }
 section#contact :-ms-input-placeholder {
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-weight: 700;
-  color: #eeeeee;
+  color: #777777;
 }
 section#contact .text-danger {
   color: #e74c3c;
@@ -734,6 +754,7 @@ ul.social-buttons li a:active {
 ::selection {
   text-shadow: none;
   background: #4778cc;
+  color: white;
 }
 img::selection {
   background: transparent;
