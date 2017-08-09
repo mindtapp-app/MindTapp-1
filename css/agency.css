@@ -307,16 +307,16 @@ section h3.section-subheading {
     padding: 150px 0;
   }
 }
-#services {
+#services,
+#portfolio {
   background-color: #eeeeee;
 }
 #about,
-#portfolio,
 #team {
   background-color: white;
 }
 aside.clients {
-  background-color: #eeeeee;
+  background-color: white;
 }
 .service-heading {
   margin: 15px 0;
