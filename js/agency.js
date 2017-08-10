@@ -1,12 +1,15 @@
 // Agency Theme JavaScript
 
 $(document).ready(function () {
-    setTimeout(function(){
+    if($(window).scrollTop() === 0) {
+        setTimeout(function(){
+            $('body').addClass('loaded');
+            $("#mainNav").addClass('animate-header');
+            $(".intro-text").addClass('animate-intro');
+        }, 1000);
+    } else {
         $('body').addClass('loaded');
-        $('h1').css('color','#222222');
-        $("#mainNav").addClass('animate-header');
-        $(".intro-text").addClass('animate-intro');
-    }, 1000);
+    }
 });
 
 (function($) {
@@ -38,5 +41,21 @@ $(document).ready(function () {
             top: 100
         }
     })
+
+
+    window.sr = ScrollReveal();
+    sr.reveal(".sr-timeline", {
+        duration: 1000
+    });
+    sr.reveal(".sr-services", {
+        duration: 1000,
+        distance: "20px"
+    }, 300);
+    sr.reveal(".sr-portfolio", {
+        duration: 1000
+    }, 300);
+    sr.reveal(".sr-team", {
+        duration: 1000
+    }, 300);
 
 })(jQuery); // End of use strict

@@ -295,9 +295,6 @@ header .intro-text .intro-heading {
   height: 100%;
   z-index: 1000;
 }
-h1 {
-  color: #EEEEEE;
-}
 #loader-wrapper .loader-section {
   position: fixed;
   top: 0;
