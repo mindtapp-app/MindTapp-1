@@ -1,8 +1,12 @@
 // Agency Theme JavaScript
 
 $(document).ready(function () {
-    $("#mainNav").addClass('animate-header');
-    $(".intro-text").addClass('animate-intro');
+    setTimeout(function(){
+        $('body').addClass('loaded');
+        $('h1').css('color','#222222');
+        $("#mainNav").addClass('animate-header');
+        $(".intro-text").addClass('animate-intro');
+    }, 1000);
 });
 
 (function($) {
