@@ -48,14 +48,13 @@ $(document).ready(function () {
         duration: 1000
     });
     sr.reveal(".sr-services", {
-        duration: 1000,
-        distance: "20px"
+        duration: 1000
     }, 300);
     sr.reveal(".sr-portfolio", {
         duration: 1000
-    }, 300);
+    }, 600);
     sr.reveal(".sr-team", {
         duration: 1000
-    }, 300);
+    }, 600);
 
 })(jQuery); // End of use strict
