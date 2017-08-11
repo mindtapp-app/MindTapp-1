@@ -24,28 +24,28 @@ $company = strip_tags(htmlspecialchars($_POST['company']));
 $jobTitle = strip_tags(htmlspecialchars($_POST['jobTitle']));
 
 $email_subject = "Website Contact Form:  $name";
-$email_body = "You have received a new message from your website contact form.\n\n"."Here are the details:\n\nName:"."$name"."\n\nCompany: "."$company"."\n\nJob Title: "."$jobTitle"."\n\nEmail: "."$email_address"."\n\nPhone: "."$phone"."\n\nMessage:\n"."$message;
+$email_body = "You have received a new message from your website contact form.\n\n" . "Here are the details:\n\nName:" . "$name" . "\n\nCompany: " . "$company" . "\n\nJob Title: " . "$jobTitle" . "\n\nEmail: " . "$email_address" . "\n\nPhone: " . "$phone" . "\n\nMessage:\n" . $message;
 
 $mail = new PHPMailer;
 $mail->isSMTP();
-
 $mail->SMTPDebug = 2;
 $mail->Host = $SMTP;
 $mail->Port = $SMTPport;
-$mail->SMTPSecure = 'ssl';
+$mail->SMTPSecure = 'tls';
 $mail->SMTPAuth = true;
 $mail->Username = $username;
 $mail->Password = $password;
-$mail->setFrom('website@mindtapp.com', 'First Last');
-$mail->addAddress('mindtrainingapp@gmail.com', 'First Last');
+$mail->setFrom('website@mindtapp.com', 'Website');
+$mail->addAddress('mindtrainingapp@gmail.com', 'Webadmin');
 $mail->Subject = $email_subject;
-$mail->body = $email_body;
+$mail->Body = $email_body;
 
 if (!$mail->send()) {
-    error_log("Mailer Error: " . $mail->ErrorInfo);
+    error_log("Mailerror:" . $mail->ErrorInfo);
 } else {
     error_log("Message sent!");
 }
+$mail->SmtpClose();
 
 return true;
 ?>
