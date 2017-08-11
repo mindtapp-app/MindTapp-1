@@ -1,4 +1,9 @@
 <?php
+require '../lib/phpmailer/PHPMailerAutoload.php';
+require 'creds.php'
+
+date_default_timezone_set('Etc/UTC');
+
 // Check for empty fields
 if(empty($_POST['name'])      ||
    empty($_POST['email'])     ||
@@ -9,18 +14,38 @@ if(empty($_POST['name'])      ||
    echo "No arguments Provided!";
    return false;
    }
-   
+
+
 $name = strip_tags(htmlspecialchars($_POST['name']));
 $email_address = strip_tags(htmlspecialchars($_POST['email']));
 $phone = strip_tags(htmlspecialchars($_POST['phone']));
 $message = strip_tags(htmlspecialchars($_POST['message']));
-   
-// Create the email and send the message
-$to = 'jjian014@ucr.edu'; // Add your email address inbetween the '' replacing yourname@yourdomain.com - This is where the form will send a message to.
+$company = strip_tags(htmlspecialchars($_POST['company']));
+$jobTitle = strip_tags(htmlspecialchars($_POST['jobTitle']));
+
 $email_subject = "Website Contact Form:  $name";
-$email_body = "You have received a new message from your website contact form.\n\n"."Here are the details:\n\nName: $name\n\nEmail: $email_address\n\nPhone: $phone\n\nMessage:\n$message";
-$headers = "From: noreply@yourdomain.com\n"; // This is the email address the generated message will be from. We recommend using something like noreply@yourdomain.com.
-$headers .= "Reply-To: $email_address";   
-mail($to,$email_subject,$email_body,$headers);
-return true;         
+$email_body = "You have received a new message from your website contact form.\n\n"."Here are the details:\n\nName: $name\n\nCompany: $company\n\nJob Title: $jobTitle\n\nEmail: $email_address\n\nPhone: $phone\n\nMessage:\n$message
+
+$mail = new PHPMailer;
+$mail->isSMTP();
+
+$mail->SMTPDebug = 2;
+$mail->Host = $SMTP;
+$mail->Port = $SMTPport;
+$mail->SMTPSecure = 'tls';
+$mail->SMTPAuth = true;
+$mail->Username = $username;
+$mail->Password = $password;
+$mail->setFrom('website@mindtapp.com', 'First Last');
+$mail->addAddress('mindtrainingapp@gmail.com', 'First Last');
+$mail->Subject = $email_subject;
+$mail->AltBody = $email_body;
+
+if (!$mail->send()) {
+    echo "Mailer Error: " . $mail->ErrorInfo;
+} else {
+    echo "Message sent!";
+}
+
+return true;
 ?>
