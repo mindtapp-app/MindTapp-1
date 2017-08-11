@@ -24,7 +24,7 @@ $company = strip_tags(htmlspecialchars($_POST['company']));
 $jobTitle = strip_tags(htmlspecialchars($_POST['jobTitle']));
 
 $email_subject = "Website Contact Form:  $name";
-$email_body = "You have received a new message from your website contact form.\n\n"."Here are the details:\n\nName: $name\n\nCompany: $company\n\nJob Title: $jobTitle\n\nEmail: $email_address\n\nPhone: $phone\n\nMessage:\n$message";
+$email_body = "You have received a new message from your website contact form.\n\n"."Here are the details:\n\nName:"."$name"."\n\nCompany: "."$company"."\n\nJob Title: "."$jobTitle"."\n\nEmail: "."$email_address"."\n\nPhone: "."$phone"."\n\nMessage:\n"."$message;
 
 $mail = new PHPMailer;
 $mail->isSMTP();
@@ -39,7 +39,7 @@ $mail->Password = $password;
 $mail->setFrom('website@mindtapp.com', 'First Last');
 $mail->addAddress('mindtrainingapp@gmail.com', 'First Last');
 $mail->Subject = $email_subject;
-$mail->AltBody = $email_body;
+$mail->body = $email_body;
 
 if (!$mail->send()) {
     error_log("Mailer Error: " . $mail->ErrorInfo);
