@@ -1,6 +1,6 @@
 <?php
 require '../lib/phpmailer/PHPMailerAutoload.php';
-require 'creds.php'
+require 'creds.php';
 
 date_default_timezone_set('Etc/UTC');
 
@@ -24,7 +24,7 @@ $company = strip_tags(htmlspecialchars($_POST['company']));
 $jobTitle = strip_tags(htmlspecialchars($_POST['jobTitle']));
 
 $email_subject = "Website Contact Form:  $name";
-$email_body = "You have received a new message from your website contact form.\n\n"."Here are the details:\n\nName: $name\n\nCompany: $company\n\nJob Title: $jobTitle\n\nEmail: $email_address\n\nPhone: $phone\n\nMessage:\n$message
+$email_body = "You have received a new message from your website contact form.\n\n"."Here are the details:\n\nName: $name\n\nCompany: $company\n\nJob Title: $jobTitle\n\nEmail: $email_address\n\nPhone: $phone\n\nMessage:\n$message";
 
 $mail = new PHPMailer;
 $mail->isSMTP();
@@ -32,7 +32,7 @@ $mail->isSMTP();
 $mail->SMTPDebug = 2;
 $mail->Host = $SMTP;
 $mail->Port = $SMTPport;
-$mail->SMTPSecure = 'tls';
+$mail->SMTPSecure = 'ssl';
 $mail->SMTPAuth = true;
 $mail->Username = $username;
 $mail->Password = $password;
@@ -42,9 +42,9 @@ $mail->Subject = $email_subject;
 $mail->AltBody = $email_body;
 
 if (!$mail->send()) {
-    echo "Mailer Error: " . $mail->ErrorInfo;
+    error_log("Mailer Error: " . $mail->ErrorInfo);
 } else {
-    echo "Message sent!";
+    error_log("Message sent!");
 }
 
 return true;
