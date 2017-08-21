@@ -236,7 +236,7 @@ fieldset[disabled] .btn-xl.active {
   }
 }
 header {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/Landingpage.jpg');
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/landing.jpg');
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: right center;

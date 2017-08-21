@@ -1,6 +1,6 @@
 // Agency Theme JavaScript
 
-$(document).ready(function () {
+$(window).on("load", function () {
     if($(window).scrollTop() === 0) {
         setTimeout(function(){
             $('body').addClass('loaded');
