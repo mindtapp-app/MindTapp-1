@@ -1,5 +1,7 @@
 node_modules
 .idea
 .htaccess
-MindTappSite/MindTappSite/credentials.py
+MindTappSite/MindTappSite/email_settings.py
 __pycache__
+MindTappSite/MindTappSite/db_settings.py
+MindTappSite/db.sqlite3
