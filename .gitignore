@@ -2,6 +2,7 @@ node_modules
 .idea
 .htaccess
 MindTappSite/MindTappSite/prod_settings.py
+MindTappSite/static
 __pycache__
 MindTappSite/db.sqlite3
 MindTappEnv/
