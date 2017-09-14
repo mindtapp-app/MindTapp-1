@@ -1,29 +1,16 @@
-# [Start Bootstrap](http://startbootstrap.com/) - [Agency](http://startbootstrap.com/template-overviews/agency/)
+# [MindTapp](http://mindtapp.com/)
 
-[Agency](http://startbootstrap.com/template-overviews/agency/) is a one page agency portfolio theme for [Bootstrap](http://getbootstrap.com/) created by [Start Bootstrap](http://startbootstrap.com/). This theme features several content sections, a responsive portfolio grid with hover effects, full page portfolio item modals, a responsive timeline, and a working PHP contact form.
-
-## Getting Started
-
-Several options are available to get started quickly:
-* [Download the latest release on Start Bootstrap](http://startbootstrap.com/template-overviews/agency/)
-* Clone the repo: `git clone https://github.com/BlackrockDigital/startbootstrap-agency.git`
-* Fork the repo
-
-## Developing Using Source Files
+## Developing Static Files
 
 To use the source files, you will need to have npm installed globally along with Gulp.js. To start:
-* Run `npm install` in the root directory
+* Run `npm install` in the static directory
 * Run `gulp dev` and edit the files as needed
 
 If you need to update the plugins included with this template, simply run the following tasks:
 * First run `npm update` to update the dependencies
 * Then run `gulp copy` to copy the new versions to their proper destinations
 
-## Bugs and Issues
-
-Have a bug or an issue with this template? [Open a new issue](https://github.com/BlackrockDigital/startbootstrap-agency/issues) here on GitHub or leave a comment on the [template overview page at Start Bootstrap](http://startbootstrap.com/template-overviews/agency/).
-
-## Creator
+## Theme Creator
 
 Start Bootstrap was created by and is maintained by **[David Miller](http://davidmiller.io/)**, Owner of [Blackrock Digital](http://blackrockdigital.io/).
 
@@ -34,17 +21,24 @@ Start Bootstrap is based on the [Bootstrap](http://getbootstrap.com/) framework 
 
 ## How to Login
 
-1. Navigate to the directory that includes the MindTapp.pem file.  
-2. chmod 600 MindTapp.pem  
-3. ssh -i MindTapp.pem ec2-user@ec2-18-220-122-247.us-east-2.compute.amazonaws.com  
+1. Navigate to the directory that includes the .pem file.  
+2. chmod 600 keyname.pem  
+3. ssh -i keyname.pem ubuntu@serveraddress
 4. If a prompt asks you a yes/no question, answer yes.  
 5. You should now be in the AWS server via terminal/PuTTY.
 
 ## How to update from GitHub repository
 
 1. cd /var/www/MindTapp  
-2. sudo git pull  
-3. sudo httpd -k restart
+2. sudo git pull
+3. sudo service nginx restart
+4. sudo service gunicorn restart
+
+## How to activate the virtualenv
+
+This step is necessary to seperate system and project requirements. All python/pip will be on the local settings, allowing for less of a headache in using python3.
+1. sudo su
+2. source /srv/MindTapp/MindTappEnv/bin/activate
 
 ## Copyright and License
 
