@@ -40,6 +40,11 @@ This step is necessary to seperate system and project requirements. All python/p
 1. sudo su
 2. source /srv/MindTapp/MindTappEnv/bin/activate
 
+## How to test locally
+
+1. change directory to manage.py
+2. python manage.py runserver
+
 ## Copyright and License
 
 Copyright 2013-2016 Blackrock Digital LLC. Code released under the [MIT](https://github.com/BlackrockDigital/startbootstrap-agency/blob/gh-pages/LICENSE) license.
