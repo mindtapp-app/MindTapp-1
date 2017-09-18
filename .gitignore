@@ -6,4 +6,5 @@ MindTappSite/static
 MindTappSite/MindTapp.sock
 __pycache__
 MindTappSite/db.sqlite3
+MindTappSite/__pycache__/
 MindTappEnv/
