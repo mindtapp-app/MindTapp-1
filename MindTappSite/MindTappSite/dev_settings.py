@@ -125,4 +125,4 @@ STATIC_URL = '/static/'
 
 
 # Storing private information like keys, email backend, etc
-from .email_settings import *
+
