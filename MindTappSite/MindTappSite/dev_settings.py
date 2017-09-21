@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'MindTappSite',
-    'contact_email.apps.ContactEmailConfig'
+    'contact_email.apps.ContactEmailConfig',
+    'rest_framework',
+    'common.apps.CommonConfig',
 ]
 
 MIDDLEWARE = [

@@ -20,5 +20,5 @@ from MindTappSite import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name='index'),
-    url(r'^contact/', include('contact_email.urls'))
+    url(r'^contact/', include('contact_email.urls')),
 ]
