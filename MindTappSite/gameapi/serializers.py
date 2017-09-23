@@ -8,22 +8,27 @@ class GameSerializer(serializers.ModelSerializer):
         model = Game
         fields = ('name', 'participants', 'allowed_orgs')
 
+# class GameStatsPostSerializer(serializers.ModelSerializer):
+#
+
 
 class GameStatsSerializer(serializers.ModelSerializer):
-    #game_session = serializers.RelatedField()
+    game_session = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = GameStat
         fields = ('type', 'data', 'game_session')
+        # extra_kwargs = {'game': {'read_only': True}}
 
 
 class GameParticipantSerializer(serializers.ModelSerializer):
     game = serializers.PrimaryKeyRelatedField(queryset=Game.objects.all())
     user = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
+    game_stats = serializers.StringRelatedField(many=True, read_only=True)
 
     class Meta:
         model = GameParticipant
-        fields = ('id', 'game', 'user')
+        fields = ('id', 'game', 'user', 'game_stats')
 
     #def create(self, validated_data):
 

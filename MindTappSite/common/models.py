@@ -17,7 +17,7 @@ class Game(models.Model):
     allowed_orgs = models.ManyToManyField(Group)
 
     def __str__(self):
-        return self.name
+        return self.id + ': ' + self.name
 
 
 class GameParticipant(models.Model):
@@ -26,17 +26,17 @@ class GameParticipant(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.game.name + ' ' + self.user.username + ' ' + str(self.date_added)
+        return self.game.name + ', ' + self.user.username + ', ' + str(self.date_added)
     #find a prettier way to format date
 
 
 class GameStat(models.Model):
     type = models.TextField(max_length=64)
     data = models.TextField(max_length=256)
-    game_session = models.ForeignKey(GameParticipant, on_delete=models.CASCADE)
+    game_session = models.ForeignKey(GameParticipant, on_delete=models.CASCADE, related_name='game_stats')
 
     def __str__(self):
-        return self.type + ' ' + self.data
+        return '(' + self.game_session.user.username + ') ' + self.type + ': ' + self.data
 
 
 # todo continue working on group access code
