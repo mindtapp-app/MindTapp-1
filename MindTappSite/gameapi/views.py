@@ -27,16 +27,18 @@ class CreateGameParticipant(generics.CreateAPIView):
     #     serializer.save(user=self.request.user)
 
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
         if GameParticipant.objects.filter(user=self.request.user, game=self.request.data['game']).exists():
             return response.Response({'error': 'entry already exists'}, status.HTTP_400_BAD_REQUEST)
 
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return response.Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return super(CreateGameParticipant, self).create(*args, **kwargs)
+        # serializer = self.get_serializer(data=request.data)
+        # serializer.is_valid(raise_exception=True)
+        # self.perform_create(serializer)
+        # headers = self.get_success_headers(serializer.data)
+        # return response.Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
+# todo: combine game participants into a single listcreateapiview
 class DetailGameParticipant(generics.ListAPIView):
     serializer_class = GameParticipantSerializer
     model = GameParticipant
@@ -50,15 +52,7 @@ class DetailGameParticipant(generics.ListAPIView):
         if not Game.objects.filter(id=self.request.data['game']).exists():
             return response.Response(data={'error': 'game doesnt exist'}, status=status.HTTP_400_BAD_REQUEST)
 
-        queryset = self.filter_queryset(self.get_queryset())
-
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
-
-        serializer = self.get_serializer(queryset, many=True)
-        return response.Response(serializer.data)
+        return super(DetailGameParticipant, self).list(request, *args, **kwargs)
 
     def get_queryset(self):
         user = self.request.user
@@ -87,42 +81,14 @@ class GameStatViewSet(viewsets.ModelViewSet):
         if 'game' not in self.request.data:
             return response.Response({'error': 'game not provided'}, status=status.HTTP_400_BAD_REQUEST)
 
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return response.Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return super(GameStatViewSet, self).create(request, *args, **kwargs)
 
     def perform_create(self, serializer):
         serializer.save(game_session=GameParticipant.objects.get(game=self.request.data['game'], user=self.request.user))
 
     def get_queryset(self):
         user = self.request.user
-
         filter_queryset = GameParticipant.objects.filter(user=user)
         return GameStat.objects.filter(game_session__in=filter_queryset)
 
-
-
-# class CreateUser(APIView):
-#     permission_classes = [permissions.AllowAny]
-#     queryset = User.objects.all()
-#
-#     def post(self, request, format=None):
-#         serializer = UserSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
-
-
-# class UserViewSet(mixins.CreateModelMixin,
-#                  viewsets.GenericViewSet):
-#    permissions_classes = [permissions.IsAuthenticated]
-#    queryset = User.objects.all()
-#    serializer_class = UserSerializer
-#
-#    @method_decorator(csrf_exempt)
-#    def dispatch(self, *args, **kwargs):
-#        return super(UserViewSet, self).dispatch(*args, **kwargs)
 
