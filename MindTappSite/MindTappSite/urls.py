@@ -15,10 +15,16 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from MindTappSite import views
+from . import views
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import CreateView
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^admin/?', admin.site.urls),
     url(r'^$', views.index, name='index'),
-    url(r'^contact/', include('contact_email.urls')),
+    #url(r'^register/?', views.RegistrationView.as_view()),
+    url(r'^reset/?', PasswordResetView.as_view()),
+    url(r'^contact/?', include('contact_email.urls')),
+    url(r'^api/', include('gameapi.urls')),
 ]

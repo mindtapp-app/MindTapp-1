@@ -1,0 +1,8 @@
+from django.db import models
+
+# Create your models here.
+class Survey(models.Model):
+    public = models.BooleanField()
+    title = models.TextField()
+    description = models.TextField()
+    active = models.BooleanField()
