@@ -9,10 +9,20 @@ from rest_framework.authtoken.models import Token
 from rest_framework import viewsets
 from django.db.models.base import ObjectDoesNotExist
 
+
 class CreateUser(generics.CreateAPIView):
     serializer_class = UserSerializer
     model = User
     permission_classes = (permissions.AllowAny,)
+
+    def perform_create(self, serializer):
+        if not Group.objects.filter(name="defaultgameusers").exists():
+            Group.objects.create(name="defaultgameusers")
+
+        serializer.save()
+
+        group = Group.objects.get(name="defaultgameusers")
+        group.user_set.add(User.objects.get(username=self.request.data["username"]))
 
 
 class CreateGameParticipant(generics.CreateAPIView):

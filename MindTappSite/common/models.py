@@ -5,6 +5,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 from datetime import datetime
+import random
+from django.db import IntegrityError
 
 # Create your models here.
 
@@ -35,6 +37,29 @@ class GameStat(models.Model):
 
     def __str__(self):
         return self.type + ' ' + self.data
+
+
+# todo continue working on group access code
+# class AccessCodeGroup(Group):
+#     access_code = models.CharField(max_length=16, blank=True, editable=False, unique=True)
+#
+#     def save(self, *args, **kwargs):
+#         if not self.access_code:
+#             self.access_code = ''.join(random.choice('0123456789ABCDEF') for i in range(16))
+#         success = False
+#         failures = 0
+#         while not success:
+#             try:
+#                 super(AccessCodeGroup, self).save(*args, **kwargs)
+#             except IntegrityError:
+#                 failures += 1
+#                 if failures > 5:  # or some other arbitrary cutoff point at which things are clearly wrong
+#                     raise
+#                 else:
+#                     # looks like a collision, try another random value
+#                     self.access_code = ''.join(random.choice('0123456789ABCDEF') for i in range(16))
+#             else:
+#                 success = True
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
