@@ -4,7 +4,7 @@ from django.utils.decorators import method_decorator
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404, get_list_or_404
 from .serializers import *
-from rest_framework import generics, permissions, status
+from rest_framework import generics, permissions, status, response
 from rest_framework.authtoken.models import Token
 from rest_framework import viewsets
 from django.db.models.base import ObjectDoesNotExist
@@ -22,6 +22,16 @@ class CreateGameParticipant(generics.CreateAPIView):
 
     # def perform_create(self, serializer):
     #     serializer.save(user=self.request.user)
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        if GameParticipant.objects.filter(user=self.request.user, game=self.request.data['game']).exists():
+            return response.Response({'error': 'entry already exists'}, status.HTTP_400_BAD_REQUEST)
+
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return response.Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class DetailGameParticipant(generics.RetrieveAPIView):

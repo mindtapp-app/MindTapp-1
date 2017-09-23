@@ -9,8 +9,8 @@ router.register(r'stats', views.GameStatViewSet, base_name='game stat')
 urlpatterns = [
     url(r'^register', csrf_exempt(views.CreateUser.as_view())),
     url(r'^', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^create', csrf_exempt(views.CreateGameParticipant.as_view())),
-    url(r'^participant', csrf_exempt(views.DetailGameParticipant.as_view())),
+    url(r'^participant_register', csrf_exempt(views.CreateGameParticipant.as_view())),
+    url(r'^participant_details', csrf_exempt(views.DetailGameParticipant.as_view())),
     url(r'^', include(router.urls)),
 ]
 
