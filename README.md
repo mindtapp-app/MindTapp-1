@@ -48,7 +48,8 @@ This step is necessary to seperate system and project requirements. All python/p
 ## How to test locally
 
 1. change directory to manage.py
-2. python manage.py runserver
+2. pip install -r requirements.txt
+3. python (MAKE SURE THIS IS PYTHON3) manage.py runserver
 
 ## Copyright and License
 
