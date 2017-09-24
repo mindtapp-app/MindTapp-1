@@ -29,7 +29,9 @@ admin.site.register(AccessCodeGroup, AccessCodeGroupAdmin)
 admin.site.register(Game, GameAdmin)
 admin.site.register(GameStat, GameStatsAdmin)
 admin.site.register(GameParticipant, GameParticipantAdmin)
+admin.site.unregister(Group)
 
+#in case of not manually registered, pass through all models
 app_models = apps.get_app_config('common').get_models()
 for model in app_models:
     try:
