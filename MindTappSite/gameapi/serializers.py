@@ -1,6 +1,12 @@
 from rest_framework import serializers
-from common.models import Game, GameStat, GameParticipant, User, Group
+from common.models import Game, GameStat, GameParticipant, User, AccessCodeGroup
 from rest_framework.authtoken.models import Token
+
+
+class AccessCodeGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AccessCodeGroup
+        fields = ('name', 'access_code')
 
 
 class GameSerializer(serializers.ModelSerializer):
@@ -8,22 +14,27 @@ class GameSerializer(serializers.ModelSerializer):
         model = Game
         fields = ('name', 'participants', 'allowed_orgs')
 
+# class GameStatsPostSerializer(serializers.ModelSerializer):
+#
+
 
 class GameStatsSerializer(serializers.ModelSerializer):
-    #game_session = serializers.RelatedField()
+    game_session = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = GameStat
         fields = ('type', 'data', 'game_session')
+        # extra_kwargs = {'game': {'read_only': True}}
 
 
 class GameParticipantSerializer(serializers.ModelSerializer):
     game = serializers.PrimaryKeyRelatedField(queryset=Game.objects.all())
     user = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
+    game_stats = serializers.StringRelatedField(many=True, read_only=True)
 
     class Meta:
         model = GameParticipant
-        fields = ('id', 'game', 'user')
+        fields = ('id', 'game', 'user', 'game_stats')
 
     #def create(self, validated_data):
 
@@ -38,10 +49,6 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = super(UserSerializer, self).create(validated_data)
-        #user = User(
-        #    email=validated_data['email'],
-        #    username=validated_data['username'],
-        #)
         user.set_password(validated_data['password'])
         user.save()
         return user

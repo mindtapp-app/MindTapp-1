@@ -11,14 +11,9 @@ urlpatterns = [
     url(r'^', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^participant_register', csrf_exempt(views.CreateGameParticipant.as_view())),
     url(r'^participant_details', csrf_exempt(views.DetailGameParticipant.as_view())),
+    url(r'^access', csrf_exempt(views.AddCheckGroup.as_view())),
     url(r'^', include(router.urls)),
 ]
 
 from rest_framework.authtoken import views
 urlpatterns += [url(r'^api-auth/', views.obtain_auth_token)]
-
-#    url(r'^game/$', views.GameList.as_view()),
-#    url(r'^gamestats/$', views.GameStatsList.as_view()),
-#    url(r'^gameparts/$', views.GameParticipantList.as_view()),
-#    url(r'^user/$', views.UserList.as_view()),
-#    url(r'^register', views.UserCreate.as_view()),
