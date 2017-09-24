@@ -10,6 +10,8 @@ If you need to update the plugins included with this template, simply run the fo
 * First run `npm update` to update the dependencies
 * Then run `gulp copy` to copy the new versions to their proper destinations
 
+Note, if you want to store static files in their own apps, be sure to copy over the gulp.js file and run it there seperately when developing that app
+
 ## Theme Creator
 
 Start Bootstrap was created by and is maintained by **[David Miller](http://davidmiller.io/)**, Owner of [Blackrock Digital](http://blackrockdigital.io/).
@@ -29,10 +31,13 @@ Start Bootstrap is based on the [Bootstrap](http://getbootstrap.com/) framework 
 
 ## How to update from GitHub repository
 
-1. cd /var/www/MindTapp  
-2. sudo git pull
-3. sudo service nginx restart
-4. sudo service gunicorn restart
+1. sudo su
+2. cd /srv/MindTapp
+3. source MindTappEnv/bin/source
+4. git pull
+5. systemctl nginx restart
+6. systemctl gunicorn restart
+7. double check if any changes were added to dev_settings, make sure prod_settings is manually updated appropriately for it
 
 ## How to activate the virtualenv
 
