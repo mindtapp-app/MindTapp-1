@@ -10,7 +10,9 @@ If you need to update the plugins included with this template, simply run the fo
 * First run `npm update` to update the dependencies
 * Then run `gulp copy` to copy the new versions to their proper destinations
 
-Note, if you want to store static files in their own apps, be sure to copy over the gulp.js file and run it there seperately when developing that app
+Note1: if you want to store static files in their own apps, be sure to copy over the gulp.js file and run it there seperately when developing that app
+
+Note2: always run python manage.py collectstatic after working with static files so nginx can serve your new files
 
 ## Theme Creator
 
@@ -36,9 +38,10 @@ Start Bootstrap is based on the [Bootstrap](http://getbootstrap.com/) framework 
 2. cd /srv/MindTapp
 3. source MindTappEnv/bin/source
 4. git pull
-5. systemctl nginx restart
-6. systemctl gunicorn restart
-7. double check if any changes were added to dev_settings, make sure prod_settings is manually updated appropriately for it
+5. python manage.py collectstatic
+6. double check if any changes were added to dev_settings, make sure prod_settings is manually updated appropriately for it
+7. systemctl nginx restart
+8. systemctl gunicorn restart
 
 ## How to activate the virtualenv
 
