@@ -50,9 +50,8 @@ This step is necessary to seperate system and project requirements. All python/p
 2. source /srv/MindTapp/MindTappEnv/bin/activate
 
 ## How to test locally
-
-1. change directory to manage.py
-2. pip install -r requirements.txt
+1. pip install -r requirements.txt (in the directory with requirements.txt)
+2. change directory to manage.py
 3. python (MAKE SURE THIS IS PYTHON3) manage.py runserver
 
 ## Copyright and License
