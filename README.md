@@ -23,7 +23,8 @@ Start Bootstrap is based on the [Bootstrap](http://getbootstrap.com/) framework 
 
 ## How to Login
 
-1. Navigate to the directory that includes the .pem file.  
+0. Remember to add your IP to the AWS security group for port 22 (ssh)
+1. Navigate to the directory that includes the .pem file.
 2. chmod 600 keyname.pem  
 3. ssh -i keyname.pem ubuntu@serveraddress
 4. If a prompt asks you a yes/no question, answer yes.  
