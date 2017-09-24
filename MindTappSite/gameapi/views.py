@@ -1,6 +1,7 @@
 from .serializers import *
 from rest_framework import generics, permissions, status, response
 from rest_framework import viewsets
+from common.models import AccessCodeGroup
 
 
 class CreateUser(generics.CreateAPIView):
@@ -8,13 +9,21 @@ class CreateUser(generics.CreateAPIView):
     model = User
     permission_classes = (permissions.AllowAny,)
 
+    def create(self, request, *args, **kwargs):
+        if User.objects.filter(username=request.data['username']):
+            return response.Response({'error': 'username already taken'}, status=status.HTTP_400_BAD_REQUEST)
+
+        return super(CreateUser, self).create(request, *args, **kwargs)
+
     def perform_create(self, serializer):
-        if not Group.objects.filter(name="defaultgameusers").exists():
-            Group.objects.create(name="defaultgameusers")
+        if not AccessCodeGroup.objects.filter(name="defaultgameusers").exists():
+            AccessCodeGroup.objects.create(name="defaultgameusers")
+        # if not Group.objects.filter(name="defaultgameusers").exists():
+            # Group.objects.create(name="defaultgameusers")
 
         serializer.save()
 
-        group = Group.objects.get(name="defaultgameusers")
+        group = AccessCodeGroup.objects.get(name="defaultgameusers")
         group.user_set.add(User.objects.get(username=self.request.data["username"]))
 
 
