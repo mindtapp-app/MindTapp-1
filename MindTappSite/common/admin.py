@@ -9,19 +9,19 @@ from .models import *
 
 
 # With object permissions support
-class AccessCodeGroupAdmin(GroupAdmin, GuardedModelAdmin):
+class AccessCodeGroupAdmin(GroupAdmin, admin.ModelAdmin):
     list_display = ('name', 'access_code')
 
 
-class GameAdmin(GuardedModelAdmin):
-    list_display = ('id', 'name')
+class GameAdmin(admin.ModelAdmin):
+    list_display = ('name', 'id')
 
 
-class GameStatsAdmin(GuardedModelAdmin):
+class GameStatsAdmin(admin.ModelAdmin):
     list_display = ('game_session', 'type', 'data')
 
 
-class GameParticipantAdmin(GuardedModelAdmin):
+class GameParticipantAdmin(admin.ModelAdmin):
     list_display = ('game', 'user', 'date_added')
 
 

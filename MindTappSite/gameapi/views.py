@@ -1,7 +1,35 @@
 from .serializers import *
 from rest_framework import generics, permissions, status, response
 from rest_framework import viewsets
+from rest_framework.views import APIView
 from common.models import AccessCodeGroup
+from django.core.exceptions import ObjectDoesNotExist
+
+
+class AddCheckGroup(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request, format=None):
+        if 'access_code' not in request.data:
+            return response.Response({'error': 'access code field required'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            accesscodegroup = AccessCodeGroup.objects.get(access_code=request.data['access_code'])
+            accesscodegroup.user_set.add(request.user)
+            return response.Response({'success': 'user was registered in the group'}, status=status.HTTP_200_OK)
+        except ObjectDoesNotExist:
+            return response.Response({'error': 'invalid code'}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+    def get(self, request, format=None):
+        if 'game' not in request.data:
+            return response.Response({'error': 'game field required'}, status=status.HTTP_400_BAD_REQUEST)
+
+        accesscodegroups = AccessCodeGroup.objects.filter(user=request.user)
+        if Game.objects.filter(allowed_orgs__in=accesscodegroups).exists():
+            return response.Response({'success': 'user is allowed to access game'}, status=status.HTTP_200_OK)
+        else:
+            return response.Response({'error': 'user is not allowed'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class CreateUser(generics.CreateAPIView):

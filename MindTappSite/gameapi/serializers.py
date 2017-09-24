@@ -1,6 +1,12 @@
 from rest_framework import serializers
-from common.models import Game, GameStat, GameParticipant, User, Group
+from common.models import Game, GameStat, GameParticipant, User, AccessCodeGroup
 from rest_framework.authtoken.models import Token
+
+
+class AccessCodeGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AccessCodeGroup
+        fields = ('name', 'access_code')
 
 
 class GameSerializer(serializers.ModelSerializer):
