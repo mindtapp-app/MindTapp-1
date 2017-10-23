@@ -12,18 +12,34 @@ from django.forms import Textarea
 # With object permissions support
 class AccessCodeGroupAdmin(GroupAdmin, admin.ModelAdmin):
     list_display = ('name', 'access_code')
+    formfield_overrides = {
+        models.TextField: {'widget': Textarea(
+            attrs={'rows': '2', 'cols': '50', 'style': 'overflow: hidden;'})},
+    }
 
 
 class GameAdmin(admin.ModelAdmin):
     list_display = ('name', 'id')
+    formfield_overrides = {
+        models.TextField: {'widget': Textarea(
+            attrs={'rows': '2', 'cols': '50', 'style': 'overflow: hidden;'})},
+    }
 
 
 class GameStatsAdmin(admin.ModelAdmin):
-    list_display = ('game_session', 'type', 'data')
+    list_display = ('game_session', 'type', 'data', 'date_added')
+    formfield_overrides = {
+        models.TextField: {'widget': Textarea(
+            attrs={'rows': '2', 'cols': '50', 'style': 'overflow: hidden;'})},
+    }
 
 
 class GameParticipantAdmin(admin.ModelAdmin):
     list_display = ('game', 'user', 'date_added')
+    formfield_overrides = {
+        models.TextField: {'widget': Textarea(
+            attrs={'rows': '2', 'cols': '50', 'style': 'overflow: hidden;'})},
+    }
 
 
 class InLine(admin.TabularInline):

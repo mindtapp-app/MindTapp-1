@@ -71,6 +71,7 @@ class GameStat(models.Model):
     type = models.TextField(max_length=64)
     data = models.TextField(max_length=256)
     game_session = models.ForeignKey(GameParticipant, on_delete=models.CASCADE, related_name='game_stats')
+    date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return '(' + self.game_session.user.username + ') ' + self.type + ': ' + self.data
