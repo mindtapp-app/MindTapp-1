@@ -122,6 +122,10 @@ class GameStatViewSet(viewsets.ModelViewSet):
         if 'game' not in self.request.data:
             return response.Response({'error': 'game not provided'}, status=status.HTTP_400_BAD_REQUEST)
 
+        # todo: no need to require manual creation of a participant entry, automatically check and add a new entry
+        #if not GameParticipant.objects.filter(user=self.request.user, game=self.request.data['game']).exists():
+        #    create
+
         return super(GameStatViewSet, self).create(request, *args, **kwargs)
 
     def perform_create(self, serializer):
