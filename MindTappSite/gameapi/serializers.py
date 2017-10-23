@@ -1,6 +1,21 @@
 from rest_framework import serializers
-from common.models import Game, GameStat, GameParticipant, User, AccessCodeGroup
+from common.models import Game, GameStat, GameParticipant, User, AccessCodeGroup, WordList, Word
 from rest_framework.authtoken.models import Token
+
+
+class WordSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Word
+        fields = ('word',)
+
+
+class WordListSerializer(serializers.ModelSerializer):
+    words = WordSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = WordList
+        fields = ('name', 'words')
 
 
 class AccessCodeGroupSerializer(serializers.ModelSerializer):

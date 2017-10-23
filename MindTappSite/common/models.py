@@ -11,6 +11,21 @@ from django.db import IntegrityError
 # Create your models here.
 
 
+class WordList(models.Model):
+    name = models.TextField(max_length=64)
+
+    def __str__(self):
+        return self.name
+
+
+class Word(models.Model):
+    word = models.TextField(max_length=256)
+    list = models.ForeignKey(WordList, on_delete=models.CASCADE, related_name='words')
+
+    def __str__(self):
+        return self.word
+
+
 class AccessCodeGroup(Group):
     access_code = models.CharField(max_length=16, blank=True, editable=False, unique=True)
 

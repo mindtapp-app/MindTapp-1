@@ -6,7 +6,7 @@ from common.models import AccessCodeGroup
 from django.core.exceptions import ObjectDoesNotExist
 
 
-class AddCheckGroup(APIView):
+class AddGroup(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def post(self, request, format=None):
@@ -21,15 +21,21 @@ class AddCheckGroup(APIView):
             return response.Response({'error': 'invalid code'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
-    def get(self, request, format=None):
-        if 'game' not in request.data:
-            return response.Response({'error': 'game field required'}, status=status.HTTP_400_BAD_REQUEST)
+class CheckGroup(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
 
+    def get(self, request, pk, format=None):
         accesscodegroups = AccessCodeGroup.objects.filter(user=request.user)
-        if Game.objects.filter(allowed_orgs__in=accesscodegroups).exists():
+        if Game.objects.filter(allowed_orgs__in=accesscodegroups).filter(id=pk).exists():
             return response.Response({'success': 'user is allowed to access game'}, status=status.HTTP_200_OK)
         else:
             return response.Response({'error': 'user is not allowed'}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class RetrieveWordList(generics.RetrieveAPIView):
+    serializer_class = WordListSerializer
+    queryset = WordList.objects.all()
+    permission_classes = (permissions.AllowAny,)
 
 
 class CreateUser(generics.CreateAPIView):
@@ -46,8 +52,6 @@ class CreateUser(generics.CreateAPIView):
     def perform_create(self, serializer):
         if not AccessCodeGroup.objects.filter(name="defaultgameusers").exists():
             AccessCodeGroup.objects.create(name="defaultgameusers")
-        # if not Group.objects.filter(name="defaultgameusers").exists():
-            # Group.objects.create(name="defaultgameusers")
 
         serializer.save()
 
