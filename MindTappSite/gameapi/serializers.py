@@ -24,15 +24,6 @@ class AccessCodeGroupSerializer(serializers.ModelSerializer):
         fields = ('name', 'access_code')
 
 
-class GameSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Game
-        fields = ('name', 'participants', 'allowed_orgs')
-
-# class GameStatsPostSerializer(serializers.ModelSerializer):
-#
-
-
 class GameStatsSerializer(serializers.ModelSerializer):
     game_session = serializers.PrimaryKeyRelatedField(read_only=True)
 
@@ -42,10 +33,16 @@ class GameStatsSerializer(serializers.ModelSerializer):
         # extra_kwargs = {'game': {'read_only': True}}
 
 
+class GameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Game
+        fields = ('id', 'name')
+
+
 class GameParticipantSerializer(serializers.ModelSerializer):
-    game = serializers.PrimaryKeyRelatedField(queryset=Game.objects.all())
+    game = GameSerializer(read_only=True)
     user = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
-    game_stats = serializers.StringRelatedField(many=True, read_only=True)
+    game_stats = GameStatsSerializer(many=True, read_only=True)
 
     class Meta:
         model = GameParticipant

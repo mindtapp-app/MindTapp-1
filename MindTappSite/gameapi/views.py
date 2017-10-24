@@ -24,9 +24,9 @@ class AddGroup(APIView):
 class CheckGroup(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
-    def get(self, request, pk, format=None):
+    def get(self, request, name, format=None):
         accesscodegroups = AccessCodeGroup.objects.filter(user=request.user)
-        if Game.objects.filter(allowed_orgs__in=accesscodegroups).filter(id=pk).exists():
+        if Game.objects.filter(allowed_orgs__in=accesscodegroups).filter(name=name).exists():
             return response.Response({'success': 'user is allowed to access game'}, status=status.HTTP_200_OK)
         else:
             return response.Response({'error': 'user is not allowed'}, status=status.HTTP_401_UNAUTHORIZED)
@@ -85,22 +85,25 @@ class DetailGameParticipant(generics.ListAPIView):
     serializer_class = GameParticipantSerializer
     model = GameParticipant
     permission_classes = (permissions.IsAuthenticated,)
-    queryset = GameParticipant.objects.all()
 
     def list(self, request, *args, **kwargs):
-        if 'game' not in self.request.data:
-            return response.Response(data={'error': 'game not provided'}, status=status.HTTP_400_BAD_REQUEST)
+        if 'name' not in self.kwargs:
+            return response.Response(data={'error': 'provide game name as argument'}, status=status.HTTP_400_BAD_REQUEST)
 
-        if not Game.objects.filter(id=self.request.data['game']).exists():
-            return response.Response(data={'error': 'game doesnt exist'}, status=status.HTTP_400_BAD_REQUEST)
+        # if 'game' not in self.request.data:
+        #    return response.Response(data={'error': 'game not provided'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # if not Game.objects.filter(id=self.request.data['game']).exists():
+        #    return response.Response(data={'error': 'game doesnt exist'}, status=status.HTTP_400_BAD_REQUEST)
 
         return super(DetailGameParticipant, self).list(request, *args, **kwargs)
 
     def get_queryset(self):
         user = self.request.user
-        if 'game' not in self.request.data:
+        try:
+            game = Game.objects.filter(name=self.kwargs['name'])
+        except ObjectDoesNotExist:
             return GameParticipant.objects.none()
-        game = self.request.data['game']
 
         return GameParticipant.objects.filter(user=user, game=game)
 
