@@ -60,7 +60,7 @@ class WordInLine(admin.TabularInline):
 
 
 class WordListAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name',)
+    list_display = ('name', 'id')
     inlines = [
         WordInLine,
     ]
