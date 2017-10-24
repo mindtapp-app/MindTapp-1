@@ -124,7 +124,7 @@ class GameStatViewSet(viewsets.ModelViewSet):
 
         # todo: no need to require manual creation of a participant entry, automatically check and add a new entry
         #if not GameParticipant.objects.filter(user=self.request.user, game=self.request.data['game']).exists():
-        #    create
+        #   result
 
         return super(GameStatViewSet, self).create(request, *args, **kwargs)
 
