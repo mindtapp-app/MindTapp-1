@@ -36,6 +36,7 @@ class RetrieveWordList(generics.RetrieveAPIView):
     serializer_class = WordListSerializer
     queryset = WordList.objects.all()
     permission_classes = (permissions.AllowAny,)
+    lookup_field = 'name'
 
 
 class CreateUser(generics.CreateAPIView):

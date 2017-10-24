@@ -13,7 +13,7 @@ urlpatterns = [
     url(r'^participant_details', csrf_exempt(views.DetailGameParticipant.as_view())),
     url(r'^access/$', csrf_exempt(views.AddGroup.as_view())),
     url(r'^access/(?P<pk>[0-9]+)', csrf_exempt(views.CheckGroup.as_view())),
-    url(r'^wordlist/(?P<pk>[0-9]+)', csrf_exempt(views.RetrieveWordList.as_view())),
+    url(r'^wordlist/(?P<name>[\w\-]+)', csrf_exempt(views.RetrieveWordList.as_view())),
     url(r'^', include(router.urls)),
 ]
 

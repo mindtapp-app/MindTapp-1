@@ -4,14 +4,14 @@ from rest_framework.authtoken.models import Token
 
 
 class WordSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Word
         fields = ('word',)
 
 
 class WordListSerializer(serializers.ModelSerializer):
-    words = WordSerializer(many=True, read_only=True)
+    # words = WordSerializer(many=True, read_only=True)
+    words = serializers.StringRelatedField(many=True, read_only=True)
 
     class Meta:
         model = WordList
