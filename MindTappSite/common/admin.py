@@ -11,15 +11,15 @@ from django.forms import Textarea
 
 class UserInLine(admin.TabularInline):
     model = AccessCodeGroup.user_set.through
-    formfield_overrides = {
-        models.TextField: {'widget': Textarea(
-            attrs={'rows': '2', 'cols': '50', 'style': 'overflow: hidden;'})},
-    }
+
+
+class GameInLine(admin.TabularInline):
+    model = Game.allowed_orgs.through
 
 
 class AccessCodeGroupAdmin(GroupAdmin, admin.ModelAdmin):
     list_display = ('name', 'access_code')
-    inlines = [UserInLine]
+    inlines = [UserInLine, GameInLine]
 
     formfield_overrides = {
         models.TextField: {'widget': Textarea(
