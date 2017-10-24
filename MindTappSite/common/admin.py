@@ -9,9 +9,18 @@ from django.forms import Textarea
 # Register your models here.
 
 
-# With object permissions support
+class UserInLine(admin.TabularInline):
+    model = AccessCodeGroup.user_set.through
+    formfield_overrides = {
+        models.TextField: {'widget': Textarea(
+            attrs={'rows': '2', 'cols': '50', 'style': 'overflow: hidden;'})},
+    }
+
+
 class AccessCodeGroupAdmin(GroupAdmin, admin.ModelAdmin):
     list_display = ('name', 'access_code')
+    inlines = [UserInLine]
+
     formfield_overrides = {
         models.TextField: {'widget': Textarea(
             attrs={'rows': '2', 'cols': '50', 'style': 'overflow: hidden;'})},
@@ -42,7 +51,7 @@ class GameParticipantAdmin(admin.ModelAdmin):
     }
 
 
-class InLine(admin.TabularInline):
+class WordInLine(admin.TabularInline):
     model = Word
     formfield_overrides = {
         models.TextField: {'widget': Textarea(
@@ -51,9 +60,9 @@ class InLine(admin.TabularInline):
 
 
 class WordListAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ('name', 'id')
     inlines = [
-        InLine,
+        WordInLine,
     ]
     formfield_overrides = {
         models.TextField: {'widget': Textarea(
@@ -68,8 +77,9 @@ admin.site.register(GameParticipant, GameParticipantAdmin)
 admin.site.unregister(Group)
 admin.site.register(WordList, WordListAdmin)
 
-#in case of not manually registered, pass through all models
+# in case of not manually registered, pass through all models
 app_models = apps.get_app_config('common').get_models()
+
 
 #for model in app_models:
 #    try:
