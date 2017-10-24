@@ -18,7 +18,7 @@ class AddGroup(APIView):
             accesscodegroup.user_set.add(request.user)
             return response.Response({'success': 'user was registered in the group'}, status=status.HTTP_200_OK)
         except ObjectDoesNotExist:
-            return response.Response({'error': 'invalid code'}, status=status.HTTP_401_UNAUTHORIZED)
+            return response.Response({'error': 'invalid code'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CheckGroup(APIView):
@@ -44,11 +44,8 @@ class CreateUser(generics.CreateAPIView):
     model = User
     permission_classes = (permissions.AllowAny,)
 
-    def create(self, request, *args, **kwargs):
-        if User.objects.filter(username=request.data['username']):
-            return response.Response({'error': 'username already taken'}, status=status.HTTP_400_BAD_REQUEST)
-
-        return super(CreateUser, self).create(request, *args, **kwargs)
+    # def create(self, request, *args, **kwargs):
+    #     return super(CreateUser, self).create(request, *args, **kwargs)
 
     def perform_create(self, serializer):
         if not AccessCodeGroup.objects.filter(name="defaultgameusers").exists():
@@ -127,7 +124,7 @@ class GameStatViewSet(viewsets.ModelViewSet):
             return response.Response({'error': 'game not provided'}, status=status.HTTP_400_BAD_REQUEST)
 
         # todo: no need to require manual creation of a participant entry, automatically check and add a new entry
-        #if not GameParticipant.objects.filter(user=self.request.user, game=self.request.data['game']).exists():
+        # if not GameParticipant.objects.filter(user=self.request.user, game=self.request.data['game']).exists():
         #   result
 
         return super(GameStatViewSet, self).create(request, *args, **kwargs)

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from common.models import Game, GameStat, GameParticipant, User, AccessCodeGroup, WordList, Word
 from rest_framework.authtoken.models import Token
+import django.contrib.auth.password_validation as validators
 
 
 class WordSerializer(serializers.ModelSerializer):
@@ -63,6 +64,9 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+    # def validate(self, data):
+    # todo: validation one day
 
 
 class TokenSerializer(serializers.ModelSerializer):
