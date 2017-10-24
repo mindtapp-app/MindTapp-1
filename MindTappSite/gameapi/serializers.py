@@ -54,7 +54,6 @@ class GameParticipantSerializer(serializers.ModelSerializer):
     #def create(self, validated_data):
 
 
-
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
@@ -67,6 +66,7 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
 
 class TokenSerializer(serializers.ModelSerializer):
     class Meta:
